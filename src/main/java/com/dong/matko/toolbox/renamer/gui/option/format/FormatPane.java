@@ -26,7 +26,7 @@ public class FormatPane extends OptionPane implements Option {
 		super(new MigLayout("", "[]50[]50[]", "[]0[]0[]0[]0[]"), "title.format");
 
 		m.registerOption(this);
-		
+
 		group = new ButtonGroup();
 		AbstractButton lowercase = new OptionRadioButton((ActionListener) el, m, "option.format.lowercase", "Lowercase", false);
 		AbstractButton uppercase = new OptionRadioButton((ActionListener) el, m, "option.format.uppercase", "Uppercase", false);
@@ -40,7 +40,7 @@ public class FormatPane extends OptionPane implements Option {
 		group.add(uncapitalize);
 		group.add(defaultRadioCase);
 		setOpaque(false);
-		
+
 		// --- Layout
 		add(lowercase, "cell 0 0");
 		add(uppercase, "cell 0 1");
@@ -52,11 +52,11 @@ public class FormatPane extends OptionPane implements Option {
 		add(new OptionCheckBox((ActionListener) el, m, "option.format.remove.double.spaces", "DoubleSpaces", true), "cell 1 2");
 		add(new OptionCheckBox((ActionListener) el, m, "option.format.parenthesis", "Parenthesis", false), "cell 2 0");
 		add(new OptionCheckBox((ActionListener) el, m, "option.format.extra.periods", "Periods", false), "cell 2 1");
-		
+
 	}
 
 	public void restoreDefault() {
 		group.setSelected(defaultRadioCase.getModel(), true);
 	}
-	
+
 }

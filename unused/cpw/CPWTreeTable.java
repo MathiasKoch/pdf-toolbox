@@ -34,7 +34,7 @@ public class CPWTreeTable{
 	public static PropertyChangeListener progressListener;
 	public static MyTreeNode root;
 	public static JXTreeTable treeTable;
-	
+
 	public static class MyTreeNode extends DefaultMutableTreeTableNode {
 		private boolean loaded = false;
 
@@ -76,7 +76,7 @@ public class CPWTreeTable{
 					// Here access database if needed
 					setProgress(0);
 					List<MyTreeNode> children = new ArrayList<CPWTreeTable.MyTreeNode>();
-					
+
 					ArrayList<CPWFile> files = MainWindow.SPc.getSharePointList("TEKDOC", "", "");
 					if (depth < 5) {
 						int i = 0;
@@ -145,7 +145,7 @@ public class CPWTreeTable{
 
 			}
 		});
-		
+
 		jplPanel.setLayout(new BorderLayout());
 		JScrollPane scroll = new JScrollPane(treeTable);
 		scroll.setPreferredSize(new Dimension(544, 400));

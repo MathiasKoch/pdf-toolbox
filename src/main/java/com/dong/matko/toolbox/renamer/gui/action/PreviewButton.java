@@ -25,7 +25,7 @@ public class PreviewButton extends JButton implements Command {
 		m.registerPreview(this);
         med = m;
 	}
-	
+
 	public void execute() {
 		med.preview();
 	}

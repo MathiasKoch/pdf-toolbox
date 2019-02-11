@@ -40,7 +40,7 @@ public class MenuPaneSplit extends JPanel {
 	public static JButton pdfButton, runButton, helpButton, restore;
 	private static JFileChooser fc;
 	public static String pdfFile = null;
-	public static DefaultTableModel model = new DefaultTableModel(); 
+	public static DefaultTableModel model = new DefaultTableModel();
 	private static int lastpage = 0;
 	private static JTable table;
 	private static ArrayList<Integer> level = new ArrayList<Integer>();
@@ -49,7 +49,7 @@ public class MenuPaneSplit extends JPanel {
 		setLayout(new MigLayout("flowy", "5[]5", "5[]10[]10[]push[][]5"));
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.GRAY));
-		model.addColumn(Resources.get("table.splitter.bookmark")); 
+		model.addColumn(Resources.get("table.splitter.bookmark"));
 		model.addColumn(Resources.get("table.splitter.page"));
 
 		final JPanel libelles = new JPanel(new MigLayout("wrap 2, fillx", "5[align left]36", ""));
@@ -60,7 +60,7 @@ public class MenuPaneSplit extends JPanel {
 		libelles.add(new JLabel(Resources.get("quick.splitter.mark")), "wrap, gaptop 3px");
 		libelles.add(new JLabel(Resources.get("quick.splitter.options")), "wrap, gaptop 3px");
 		libelles.add(new JLabel(Resources.get("quick.splitter.help")), "wrap, gaptop 3px");
-		
+
 		add(libelles, "alignx");
 
 
@@ -214,7 +214,7 @@ public class MenuPaneSplit extends JPanel {
 								}
 							}
 						}else if(TabSplitter.curPane == 1){
-							
+
 							if(Math.ceil((double)lastpage/Double.parseDouble(TabSplitter.npage.getText())) > 0){
 								for(int i = 0; i < Math.ceil((double)lastpage/Double.parseDouble(TabSplitter.npage.getText())); i++){
 									int pagestart = (Integer.parseInt(TabSplitter.npage.getText()) * i) + 1;
@@ -229,7 +229,7 @@ public class MenuPaneSplit extends JPanel {
 							}else{
 								// npage is larger than amount of pages in pdf
 							}
-							 
+
 						}else if(TabSplitter.curPane == 2){
 							String[] strVals = TabSplitter.commapage.getText().split(",");
 							int i = 0;

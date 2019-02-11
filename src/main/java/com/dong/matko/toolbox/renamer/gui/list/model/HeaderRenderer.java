@@ -36,5 +36,5 @@ public class HeaderRenderer extends DefaultTableCellRenderer {
 		renderedPanel.add(renderedLabel, "");
 		return renderedPanel;
 	}
-	
+
 }

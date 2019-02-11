@@ -28,7 +28,7 @@ public class OptionSpinner extends JSpinner implements Command, Option {
         med.registerOption(this);
         execute();
 	}
-	
+
 	public void execute() {
 		med.setOption(getValue(), option, int.class);
 	}

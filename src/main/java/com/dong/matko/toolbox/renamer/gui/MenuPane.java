@@ -34,7 +34,7 @@ public class MenuPane extends JPanel {
 		super(new MigLayout("flowy", "5[]5", "5[]10[]10[]push[][]5"));
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.GRAY));
-		
+
 		JPanel libelles = new JPanel(new MigLayout("wrap 2, fillx", "[align left]71[]", ""));
 		libelles.setOpaque(false);
 		libelles.setBorder(Resources.createTitledBorder("title.shortcuts"));
@@ -84,7 +84,7 @@ public class MenuPane extends JPanel {
 		add(new UndoButton(al, m), 		"alignx center, growx, sg 1");
 		add(new RestoreButton(al, m), 	"alignx center, growx, sg 1");
 		add(helpButton, 	"alignx center, growx, sg 1");
-	
+
 	}
-	
+
 }

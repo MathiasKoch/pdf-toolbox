@@ -26,14 +26,14 @@ public class WritePdf {
 		f.setReadyState(true);
 		f.setWritePos(p.get(0));
 	}
-	
+
 	@SuppressWarnings("unused")
 	static public boolean write(WriterFile f, String dirIndex, Boolean red){
-		
+
 		float pagePadding = 10;
 		float textSize = 10;
 		double factor = 1.33;
-		
+
 		PdfReader reader;
 		File newOnes = new File(f.getFile().getParent().replace(dirIndex, dirIndex + "_new"));
 		File filename = new File(f.getFile().getName());
@@ -47,7 +47,7 @@ public class WritePdf {
 				font = new Font(bf, textSize, Font.NORMAL, new BaseColor(255, 0, 0));
 			else
 				font = new Font(bf, textSize, Font.NORMAL);
-			
+
 			Rectangle pageSize = reader.getPageSizeWithRotation(1);
 			String rotation = "Portrait";
 			if(pageSize.getWidth() > pageSize.getHeight())
@@ -59,7 +59,7 @@ public class WritePdf {
 			cell.setPaddingLeft(5);
 			cell.setPaddingBottom((float)2.6);
 			cell.setBorder(0);
-			
+
 			//cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
 			table.addCell(cell);
 			String isoAsize = null;
@@ -68,7 +68,7 @@ public class WritePdf {
 			float pagePX = pageSize.getHeight();
 			if(rotation.equals("Landscape"))
 				pagePX = pageSize.getWidth();
-			
+
 			if(700 > pagePX)// smaller than A4
 				isoAsize = "Smaller than A4 paper - Orientation: " + rotation;
 			else if(900 > pagePX && pagePX >= 700) // A4
@@ -83,7 +83,7 @@ public class WritePdf {
 				isoAsize = "A0 paper - Orientation: " + rotation;
 			else // Larger then A0
 				isoAsize = "Larger than A0 paper - Orientation: " + rotation;
-			
+
 			if(f.getWritePos().getVertical().equals(TabWriter.V.TOP)){
 				if(f.getWritePos().getHorizontal().equals(TabWriter.H.RIGHT))			// TOP RIGHT
 					ct.setSimpleColumn((float)pageSize.getWidth() - pagePadding - (float)Math.round(width*factor), (float)pageSize.getHeight() - (pagePadding + 5 + textSize), (float)pageSize.getWidth() - pagePadding, (float)pageSize.getHeight() - pagePadding, 0, Element.ALIGN_RIGHT);

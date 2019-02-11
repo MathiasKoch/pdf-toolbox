@@ -161,7 +161,7 @@ public class MenuPaneUnlock extends JPanel {
 					String security = Unlocker.isLocked(file)? "Locked" : "Unlocked";
 					TabUnlocker.model.addRow(new Object[]{file.getName(),security});
 				}
-			}       
+			}
 		}
 	}
 }

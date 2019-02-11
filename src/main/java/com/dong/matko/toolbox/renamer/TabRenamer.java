@@ -26,13 +26,13 @@ import com.dong.matko.toolbox.renamer.ui.RenameMediator;
 
 public class TabRenamer extends JPanel implements ActionListener, CaretListener, ChangeListener{
 	private static final long serialVersionUID = 1L;
-	
+
 	public TabRenamer(JTabbedPane frameT, JFrame frame){
-		
+
 		RenameMediator mediator = new RenameMediator(frame);
 
 		MenuPane menu = new MenuPane(this, mediator);
-		
+
 		// --- File list
 		RenamerFileList list = new RenamerFileList(this, mediator);
 
@@ -42,7 +42,7 @@ public class TabRenamer extends JPanel implements ActionListener, CaretListener,
 		IncrementPane increment = new IncrementPane(this, mediator);
 		ReplacePane replace = new ReplacePane(this, mediator);
 		OutputPane output = new OutputPane(this, mediator);
-		
+
 		// --- Layout
 		JPanel jpl = new JPanel(new MigLayout("", "[]10[grow]"));
 		JPanel center = new JPanel(new MigLayout("", "[]", "10[]0[]0[][]5"));
@@ -68,7 +68,7 @@ public class TabRenamer extends JPanel implements ActionListener, CaretListener,
 	public void stateChanged(ChangeEvent ce) {
 		launchCommand((Command) ce.getSource());
 	}
-	
+
 	private void launchCommand(Command c) {
 		c.execute();
 	}

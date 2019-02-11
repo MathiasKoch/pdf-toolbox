@@ -34,7 +34,7 @@ import com.dong.matko.toolbox.renamer.gui.option.regexp.RegexpString;
  * files rename
  */
 public class RenameMediator {
-	
+
 	private RenameButton rename;
 	private RenamerFileList list;
 
@@ -80,12 +80,12 @@ public class RenameMediator {
 		formatExtension=Resources.get("format.extension");
 		formatGroup=Resources.get("format.group");
 	}
-	
+
 	// --- Click on exit button
 	public void exit() {
 		System.exit(0);
 	}
-	
+
 	public void rename() {
 		doRename(false, false, true);
 	}
@@ -99,13 +99,13 @@ public class RenameMediator {
 		list.setData(renameFiles);
 		undo.setEnabled(isUndo);
 	}
-	
+
 	public void setFileRenamer(ArrayList<File> files) {
 		renameFiles = new ArrayList<FileRenamer>();
 		for (File file : files) {
 			renameFiles.add(new FileRenamer(file.getAbsolutePath()));
 		}
-		
+
 	}
 
 	// --- Setting generique options
@@ -123,7 +123,7 @@ public class RenameMediator {
 		}
 		doRename(true, false, false);
 	}
-	
+
 	public void restoreDefault() {
 		blocking=true;
 		options.setCapitalize(false);
@@ -182,11 +182,11 @@ public class RenameMediator {
 			doRename(true, newRegexpFlag, false);
 		}
 	}
-	
+
 	public void preview() {
 		doRename(true, newRegexpFlag, true);
 	}
-	
+
 	private void doRename(boolean preview, boolean newRegexp, boolean forced) {
 		newRegexpFlag = newRegexp||newRegexpFlag;
 		if (blocking || (!options.isLivePreview()&&!forced)) {
@@ -209,22 +209,22 @@ public class RenameMediator {
 			String name = fr.getName();
 			if (fr.isMatching()) {
 				name = new String(options.getOutput());
-				
+
 				// --- Filename replacement
 				name = name.replaceAll(formatFilename, FilenameUtils.getBaseName(fr.getName()));
 				name = name.replaceAll(formatExtension, FilenameUtils.getExtension(fr.getName()));
-				
+
 				// --- Date replacement
 				name = name.replaceAll(formatDay, options.getDay());
 				name = name.replaceAll(formatMonth, options.getMonth());
 				name = name.replaceAll(formatYear, options.getYear());
-				
+
 				// --- Increment replacement
 				if (name.contains(formatIncrement)) {
 					name = name.replaceAll(formatIncrement, df.format(increment));
 					increment += options.getIncrStep();
 				}
-				
+
 				// --- Group replacement
 				m = options.getRegexp().matcher(fr.getName());
 				if (m.matches()) {
@@ -232,7 +232,7 @@ public class RenameMediator {
 						name = name.replaceAll(formatGroup+(i-1), m.group(i));
 					}
 				}
-				
+
 				// --- Case
 				if (options.isUppercase()) {
 					name = name.toUpperCase();
@@ -243,7 +243,7 @@ public class RenameMediator {
 				} else if (options.isCapitalize()) {
 					name = WordUtils.capitalizeFully(name);
 				}
-				
+
 				// --- Spaces
 				if (options.isDoubleSpaces()) {
 					name = name.replaceAll(" {2,}", " ");
@@ -254,7 +254,7 @@ public class RenameMediator {
 				if (options.isTrim()) {
 					name = name.trim();
 				}
-				
+
 				// --- Removing
 				if (options.isParenthesis()) {
 					// add a replace character
@@ -268,7 +268,7 @@ public class RenameMediator {
 						i=name.indexOf(".");
 					}
 				}
-				
+
 				// --- Removing & replacing
 				if (options.getRemove()!=null && options.getRemove().length()>0) {
 					name = StringUtils.replaceChars(name, options.getRemove(), "");
@@ -285,11 +285,11 @@ public class RenameMediator {
 				if (!preview) {
 					fr.renameTo(name);
 				}
-				
+
 			}
 			isUndo = isUndo || fr.undoCount()>0;
 			fr.setPreview(name);
-			
+
 		}
 		if (!preview) {
 			undo.setEnabled(isUndo);
@@ -305,14 +305,14 @@ public class RenameMediator {
 			doRename(true, false, false);
 		}
 	}
-	
+
 	public void openFolder() {
 		int returnVal = chooser.showOpenDialog(main);
 	    if (returnVal == JFileChooser.APPROVE_OPTION) {
 	    	drop(chooser.getSelectedFiles());
 	    }
 	}
-	
+
 	public void drop(File[] files) {
 		renameFiles = new ArrayList<FileRenamer>();
 		for (File file : files) {
@@ -326,7 +326,7 @@ public class RenameMediator {
 		rename.setEnabled(renameFiles.size()>0);
 		undo.setEnabled(false);
 	}
-	
+
 	private void listFiles(File[] files) {
 		for (File file : files) {
 			if (file.isFile()) {
@@ -360,7 +360,7 @@ public class RenameMediator {
 	public void registerGroupLabel(JLabel groupLabel) {
 		this.groupLabel=groupLabel;
 	}
-	
+
 	public void registerOption(Option opt) {
 		optionList.add(opt);
 	}

@@ -35,48 +35,48 @@ public class TabSplitter  {
 		JPanel jpl = new JPanel(new MigLayout("", "10[][grow]10[grow]", "10[]10[grow]5"));
 
 		MenuPaneSplit menu = new MenuPaneSplit();
-		
-		
+
+
 		table = new ZebraJTable(MenuPaneSplit.model);
 		table.setIntercellSpacing(new Dimension(0, 1));
 		table.setColumnSelectionAllowed(false);
 		table.setShowVerticalLines(false);
-		table.setShowHorizontalLines(false); 
-		  
+		table.setShowHorizontalLines(false);
+
 		npage = new JTextField();
 		npage.setPreferredSize(new Dimension(40,25));
-		npage.addKeyListener(new KeyAdapter() 
+		npage.addKeyListener(new KeyAdapter()
 		{
-			public void keyTyped(KeyEvent ke) 
+			public void keyTyped(KeyEvent ke)
 			{
 				if(!Character.isDigit(ke.getKeyChar()))
 				{
 					ke.consume();
 				}
-			} 
+			}
 			public void keyReleased(KeyEvent e){
 				MenuPaneSplit.runButton.setEnabled(MenuPaneSplit.pdfFile != null && !MenuPaneSplit.pdfFile.isEmpty() && !npage.getText().isEmpty());
-			} 
-			public void keyPressed(KeyEvent e){} 
+			}
+			public void keyPressed(KeyEvent e){}
 		});
 
-		
+
 		commapage = new JTextField();
 		commapage.setPreferredSize(new Dimension(40,25));
-		commapage.addKeyListener(new KeyAdapter() 
-		{ 
-			public void keyTyped(KeyEvent ke) 
-			{ 
-				char c = ke.getKeyChar(); 
+		commapage.addKeyListener(new KeyAdapter()
+		{
+			public void keyTyped(KeyEvent ke)
+			{
+				char c = ke.getKeyChar();
 				if(!Character.isDigit(c) && Character.compare(c, (",").charAt(0)) != 0)
-				{ 
-					ke.consume(); 
+				{
+					ke.consume();
 				}
-			} 
+			}
 			public void keyReleased(KeyEvent e){
 				MenuPaneSplit.runButton.setEnabled(MenuPaneSplit.pdfFile != null && !MenuPaneSplit.pdfFile.isEmpty() && !commapage.getText().isEmpty());
-			} 
-			public void keyPressed(KeyEvent e){} 
+			}
+			public void keyPressed(KeyEvent e){}
 		});
 
 		unlock = new JCheckBox(Resources.get("button.splitter.unlock"));
@@ -85,19 +85,19 @@ public class TabSplitter  {
 		OptionPane type = new OptionPane(new MigLayout("", ""), "title.splitter.type");
 		OptionPane opt = new OptionPane(new MigLayout("", ""), "title.options");
 		drop = new OptionPane(new MigLayout("", "[grow]"), "title.unlock");
-		
+
 		JTableHeader header = table.getTableHeader();
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(true);
 
 		midPanel.add(npage);
 		midPanel2.add(commapage);
-		
+
 		pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setWheelScrollingEnabled(true);
-		
+
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-	
+
 		curPane = 0;
 
 		bookmarkButton = new JRadioButton(Resources.get("button.splitter.bookmark"));
@@ -146,20 +146,20 @@ public class TabSplitter  {
 				drop.repaint();
 			}
 		});
-		
+
 		type.add(bookmarkButton, "wrap");
 		type.add(npageButton, "wrap");
 		type.add(nrpagesButton, "wrap");
-		
+
 		opt.add(unlock);
-		
+
 		drop.add(pane, "grow");
-		
+
 		jpl.add(type, "grow, push");
 		jpl.add(opt, "wrap, grow");
 		jpl.add(drop, "span 2, grow");
 		jpl.add(menu, "east");
-		
+
 		return jpl;
 	}
 }

@@ -25,7 +25,7 @@ public class OutputString extends JTextField implements Command, Option {
         med.registerOption(this);
         execute();
 	}
-	
+
 	public void execute() {
 		med.setResultString(getText());
 	}

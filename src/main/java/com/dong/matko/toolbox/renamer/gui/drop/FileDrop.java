@@ -29,7 +29,7 @@ public class FileDrop {
 	public FileDrop(final Component c, final boolean recursive, final Listener listener) {
 
 		dropListener = new DropTargetListener() {
-			
+
 			public void dragEnter(DropTargetDragEvent evt) {
 				if (isDragOk(evt)) {
 					evt.acceptDrag(DnDConstants.ACTION_COPY);

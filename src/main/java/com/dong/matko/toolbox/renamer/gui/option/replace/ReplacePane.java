@@ -29,5 +29,5 @@ public class ReplacePane extends OptionPane {
 		add(new JLabel(Resources.get("option.replace.replace.with")+" :"), 				"split");
 		add(new OptionTextField((CaretListener) el, m, "ReplaceWith", ""), 	"split, growx, wmax 50");
 	}
-	
+
 }

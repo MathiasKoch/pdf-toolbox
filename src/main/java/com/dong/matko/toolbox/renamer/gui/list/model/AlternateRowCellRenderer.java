@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class AlternateRowCellRenderer extends DefaultTableCellRenderer {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private final static Color ROW_COLOR_1 = Color.WHITE;
 	private final static Color ROW_COLOR_2 = new Color(0xF1, 0xF5, 0xF9);
 

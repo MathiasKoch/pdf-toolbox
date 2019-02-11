@@ -25,7 +25,7 @@ public class RenameButton extends JButton implements Command {
         med = m;
         med.registerRename(this);
 	}
-	
+
 	public void execute() {
 		med.rename();
 	}

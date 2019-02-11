@@ -14,7 +14,7 @@ public class FileRenamer implements Matching {
 
 	// --- Fo undo implementation
 	private Stack<String> oldNames;
-	
+
 	private File file;
 
 	public FileRenamer(String path) {
@@ -45,7 +45,7 @@ public class FileRenamer implements Matching {
 	public void setMatching(boolean matching) {
 		this.matching = matching;
 	}
-	
+
 	public void renameTo(String newName) {
 		oldNames.push(getName());
 		String fullPath = FilenameUtils.getFullPath(file.getAbsolutePath());
@@ -53,7 +53,7 @@ public class FileRenamer implements Matching {
 		file.renameTo(newFile);
 		file=newFile;
 	}
-	
+
 	public int undoRename() {
 		if (oldNames.size()>0) {
 			String fullPath = FilenameUtils.getFullPath(file.getAbsolutePath());
@@ -63,11 +63,11 @@ public class FileRenamer implements Matching {
 		}
 		return oldNames.size();
 	}
-	
+
 	public int undoCount() {
 		return oldNames.size();
 	}
-	
+
 	public String getName() {
 		return file.getName();
 	}
@@ -75,5 +75,5 @@ public class FileRenamer implements Matching {
 	public boolean isDirectory() {
 		return file.isDirectory();
 	}
-	
+
 }

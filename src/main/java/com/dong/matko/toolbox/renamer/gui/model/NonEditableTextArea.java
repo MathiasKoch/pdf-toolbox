@@ -10,7 +10,7 @@ import com.dong.matko.toolbox.Resources;
 public class NonEditableTextArea extends JTextArea {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public NonEditableTextArea(String text) {
 		super(text);
 		setOpaque(false);

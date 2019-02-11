@@ -23,7 +23,7 @@ public class ReadExcel {
 			for (int rowNum = rowStart; rowNum < rowEnd; rowNum++) {
 				for (File file : files) {
 					if(!file.getAbsolutePath().toLowerCase().equals(path.toLowerCase())){
-						
+
 						String relPath = helpers.getRelativeFile(new File(file.getCanonicalPath()), new File(path)).toString();
 						Cell cell = sheet.getRow(rowNum).getCell(2, Row.RETURN_BLANK_AS_NULL);
 						String fileName = getCellString(cell);
@@ -60,7 +60,7 @@ public class ReadExcel {
 			return null;
 		}
 	}
-	public static String readxlsOnce(String path) throws Exception, FileNotFoundException, IOException {		
+	public static String readxlsOnce(String path) throws Exception, FileNotFoundException, IOException {
 		Workbook workbook = WorkbookFactory.create(new FileInputStream(path));
 		Sheet sheet = workbook.getSheetAt(0);
 		Cell cell = sheet.getRow(2).getCell(6);

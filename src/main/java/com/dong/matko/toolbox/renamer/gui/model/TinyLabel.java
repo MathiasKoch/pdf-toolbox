@@ -13,5 +13,5 @@ public class TinyLabel extends JLabel {
 		super(label);
 		setFont(Resources.SMALL);
 	}
-	
+
 }

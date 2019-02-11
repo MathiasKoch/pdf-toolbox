@@ -23,7 +23,7 @@ public class OpenButton extends JButton implements Command {
 		addActionListener(al);
         med = m;
 	}
-	
+
 	public void execute() {
 		med.openFolder();
 	}

@@ -25,5 +25,5 @@ public class RegexpPane extends OptionPane {
 		add(new RegexpString((CaretListener) el, m), 							"growx");
 		add(groupLabel, 														"");
 	}
-	
+
 }

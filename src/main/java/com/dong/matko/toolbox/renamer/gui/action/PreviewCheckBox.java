@@ -28,7 +28,7 @@ public class PreviewCheckBox extends JCheckBox implements Command, Option {
         // --- Enregistrement de l'option par defaut
         execute();
 	}
-	
+
 	public void execute() {
 		med.setLivePreview(this.isSelected());
 	}

@@ -25,7 +25,7 @@ public class UndoButton extends JButton implements Command {
         med = m;
         med.registerUndo(this);
 	}
-	
+
 	public void execute() {
 		med.undo();
 	}

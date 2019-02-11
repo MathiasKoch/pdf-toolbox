@@ -34,7 +34,7 @@ public class Unlocker
 		}
 	}
 
-	public static boolean unlock(String lockedFile, boolean delete){      
+	public static boolean unlock(String lockedFile, boolean delete){
 		File qpdf = new File(System.getProperty("java.io.tmpdir") + File.separator + "qpdf-5.0.1");
 
 		if (!qpdf.exists()){

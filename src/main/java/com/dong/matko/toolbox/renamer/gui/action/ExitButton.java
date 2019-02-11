@@ -23,7 +23,7 @@ public class ExitButton extends JButton implements Command {
 		setOpaque(false);
         med = m;
 	}
-	
+
 	public void execute() {
 		med.exit();
 	}

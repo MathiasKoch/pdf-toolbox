@@ -226,7 +226,7 @@ public class RenamerOption {
 	public void setReplaceWith(String replaceWith) {
 		this.replaceWith = replaceWith;
 	}
-	
+
 	public boolean isSwapCase() {
 		return swapCase;
 	}

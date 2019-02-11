@@ -26,7 +26,7 @@ public class OptionLimitedTextField extends LimitedTextField implements Command,
         med.registerOption(this);
         execute();
 	}
-	
+
 	public void execute() {
 		med.setOption(getText(), option, String.class);
 	}

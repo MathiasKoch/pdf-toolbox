@@ -12,5 +12,5 @@ public class BlueLabel extends JLabel {
 		super(label);
 		setForeground(Color.BLUE);
 	}
-	
+
 }

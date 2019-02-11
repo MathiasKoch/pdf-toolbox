@@ -19,6 +19,6 @@ public class OutputPane extends OptionPane {
 		OutputString output = new OutputString((CaretListener) el, m);
 		add(output, "growx");
 	}
-		
-	
+
+
 }

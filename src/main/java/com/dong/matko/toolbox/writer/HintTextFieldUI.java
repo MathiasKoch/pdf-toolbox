@@ -26,7 +26,7 @@ public class HintTextFieldUI extends BasicTextFieldUI implements FocusListener {
 
     private void repaint() {
         if(getComponent() != null) {
-            getComponent().repaint();           
+            getComponent().repaint();
         }
     }
 
@@ -69,10 +69,10 @@ public class HintTextFieldUI extends BasicTextFieldUI implements FocusListener {
             if(color != null) {
                 g.setColor(color);
             } else {
-                g.setColor(comp.getForeground().brighter().brighter().brighter());              
+                g.setColor(comp.getForeground().brighter().brighter().brighter());
             }
             int padding = (comp.getHeight() - comp.getFont().getSize())/2;
-            g.drawString(hint, 4, comp.getHeight()-padding-2);          
+            g.drawString(hint, 4, comp.getHeight()-padding-2);
         }
     }
 

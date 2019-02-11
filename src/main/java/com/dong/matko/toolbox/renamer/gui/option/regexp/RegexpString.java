@@ -23,11 +23,11 @@ public class RegexpString extends JTextField implements Command {
         med.registerRegexpString(this);
         execute();
 	}
-	
+
 	public void execute() {
 		med.setRegexpString(getText());
 	}
-	
+
 	public void paintStringOK(boolean ok) {
 		if (ok) {
 			this.setBackground(Color.WHITE);

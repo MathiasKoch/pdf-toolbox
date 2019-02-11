@@ -25,7 +25,7 @@ public class OptionTextField extends JTextField implements Command, Option {
         med.registerOption(this);
         execute();
 	}
-	
+
 	public void execute() {
 		med.setOption(getText(), option, String.class);
 	}

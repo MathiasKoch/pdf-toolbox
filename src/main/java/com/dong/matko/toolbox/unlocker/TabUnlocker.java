@@ -23,7 +23,7 @@ import com.dong.matko.toolbox.renamer.gui.option.OptionPane;
 
 public class TabUnlocker  {
 	public static JCheckBox deleteButton;
-	public static DefaultTableModel model = new DefaultTableModel(); 
+	public static DefaultTableModel model = new DefaultTableModel();
 	public static JTable table;
 
 	public static JPanel initUI() {
@@ -38,10 +38,10 @@ public class TabUnlocker  {
 		table.setIntercellSpacing(new Dimension(0, 1));
 		table.setColumnSelectionAllowed(false);
 		table.setShowVerticalLines(false);
-		table.setShowHorizontalLines(false); 
-		model.addColumn("Document name"); 
-		model.addColumn("Protection status"); 
-		
+		table.setShowHorizontalLines(false);
+		model.addColumn("Document name");
+		model.addColumn("Protection status");
+
 		new FileDrop(TabUnlocker.table, false, new FileDrop.Listener() {
 			public void filesDropped(java.io.File[] files) {
 				MainWindow.showModal("Loading..");
@@ -65,7 +65,7 @@ public class TabUnlocker  {
 
 		JScrollPane pane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setWheelScrollingEnabled(true);
-		
+
 		opt.add(deleteButton);
 		drop.add(pane, "grow");
 		jpl.add(opt, "wrap, grow");
@@ -74,5 +74,5 @@ public class TabUnlocker  {
 
 		return jpl;
 	}
-	
+
 }

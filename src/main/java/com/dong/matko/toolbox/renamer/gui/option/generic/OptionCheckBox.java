@@ -32,7 +32,7 @@ public class OptionCheckBox extends JCheckBox implements Command, Option {
         // --- Enregistrement de l'option par defaut
         execute();
 	}
-	
+
 	public void execute() {
 		med.setOption(this.isSelected(), option, boolean.class);
 	}

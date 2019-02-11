@@ -13,7 +13,7 @@ import com.dong.matko.toolbox.Resources;
 public class OptionPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public OptionPane(String title) {
 		super(new MigLayout());
 		setBorder(Resources.createTitledSeparator(title));
@@ -23,5 +23,5 @@ public class OptionPane extends JPanel {
 		super(layout);
 		setBorder(Resources.createTitledSeparator(title));
 	}
-	
+
 }

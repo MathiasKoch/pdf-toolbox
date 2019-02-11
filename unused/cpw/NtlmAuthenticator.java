@@ -12,7 +12,7 @@ public class NtlmAuthenticator extends Authenticator {
   public NtlmAuthenticator(final String username, final String password) {
     super();
     this.username = new String(username);
-    this.password = password.toCharArray(); 
+    this.password = password.toCharArray();
   }
 
   @Override

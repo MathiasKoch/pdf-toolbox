@@ -28,7 +28,7 @@ public class OptionRadioButton extends JRadioButton implements Command {
         // --- Enregistrement de l'option par defaut
         execute();
 	}
-	
+
 	public void execute() {
 		med.setOption(this.isSelected(), option, boolean.class);
 	}

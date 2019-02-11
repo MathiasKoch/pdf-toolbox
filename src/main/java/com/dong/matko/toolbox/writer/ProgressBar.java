@@ -28,6 +28,6 @@ public class ProgressBar {
 		}else{
 			log.append(bar.toString());
 		}
-		
+
 	}
 }

@@ -34,8 +34,8 @@ public class TabCPW {
 	public static JPanel InitUI(){
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
-		JXMultiSplitPane msp = new JXMultiSplitPane(); 
-		
+		JXMultiSplitPane msp = new JXMultiSplitPane();
+
 		String layoutDef = 	"(ROW " +
 				"(LEAF name=left weight=0.75)" +
 				"(COLUMN weight=0.25" +
@@ -45,17 +45,17 @@ public class TabCPW {
 				"(LEAF name=right.bot weight=0.20)" +
 				")" +
 				")";
-		MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel( layoutDef ); 
-		msp.getMultiSplitLayout().setModel( modelRoot ); 
+		MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel( layoutDef );
+		msp.getMultiSplitLayout().setModel( modelRoot );
 		msp.setPaintBorderInsets(true);
 		msp.setDividerSize(8);
-		msp.add(CPWTreeTable.initUI(), "left"); 
-		msp.add(selectedDocuments(23), "right.top" ); 
-		msp.add(buttons(), "right.midTop" ); 
-		msp.add(log(), "right.midBot" ); 
+		msp.add(CPWTreeTable.initUI(), "left");
+		msp.add(selectedDocuments(23), "right.top" );
+		msp.add(buttons(), "right.midTop" );
+		msp.add(log(), "right.midBot" );
 		msp.add(selectedFile("Documentname.pdf", "rdspp number", "21/07-13", "Pia K.", "210 KB"), "right.bot");
-		// ADDING A BORDER TO THE MULTISPLITPANE CAUSES ALL SORTS OF ISSUES 
-		msp.setBorder( BorderFactory.createEmptyBorder( 4, 4, 4, 4 ) ); 
+		// ADDING A BORDER TO THE MULTISPLITPANE CAUSES ALL SORTS OF ISSUES
+		msp.setBorder( BorderFactory.createEmptyBorder( 4, 4, 4, 4 ) );
 		jp.add(msp, BorderLayout.CENTER);
 
 		return jp;
@@ -144,7 +144,7 @@ public class TabCPW {
 		log.setMargin(new Insets(5,5,5,5));
 		log.setEditable(false);
 		log.setFont(font);
-		log.setLineWrap(true); 
+		log.setLineWrap(true);
 		log.setWrapStyleWord(true);
 		JScrollPane logScrollPane = new JScrollPane(log);
 		logScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
