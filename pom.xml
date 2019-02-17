@@ -27,12 +27,12 @@
     <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
     <resources>
       <resource>
-        <directory>src/main/resources</directory>
+        <directory>${project.basedir}/src/main/resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>src/test/resources</directory>
+        <directory>${project.basedir}/src/test/resources</directory>
       </testResource>
     </testResources>
     <plugins>
