@@ -36,7 +36,7 @@ public class WritePdf {
 
 		PdfReader reader;
 		File newOnes = new File(f.getFile().getParent().replace(dirIndex, dirIndex + "_new"));
-		File filename = new File(f.getFile().getName());
+		File filename = new File(f.getName(TabWriter.drawingTextButton.isSelected()));
 		newOnes.mkdirs();
 		try {
 			reader = new PdfReader(f.getFile().toString());

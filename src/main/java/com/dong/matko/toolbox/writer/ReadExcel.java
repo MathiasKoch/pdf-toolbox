@@ -18,15 +18,18 @@ public class ReadExcel {
 		Sheet sheet = workbook.getSheetAt(0);
 		if(dir != null){
 			File[] files = new File(dir).listFiles();
-			int rowStart = sheet.getFirstRowNum() + 15;
+			int rowStart = sheet.getFirstRowNum() + 14;
 			int rowEnd = sheet.getLastRowNum();
-			for (int rowNum = rowStart; rowNum < rowEnd; rowNum++) {
+			for (int rowNum = rowStart; rowNum <= rowEnd; rowNum++) {
 				for (File file : files) {
 					if(!file.getAbsolutePath().toLowerCase().equals(path.toLowerCase())){
 
 						String relPath = helpers.getRelativeFile(new File(file.getCanonicalPath()), new File(path)).toString();
 						Cell cell = sheet.getRow(rowNum).getCell(2, Row.RETURN_BLANK_AS_NULL);
 						String fileName = getCellString(cell);
+						// Make sure it works in all operating systems
+						fileName = fileName.replace("\\", File.separator);
+						fileName = fileName.replace("/", File.separator);
 						if(!fileName.startsWith(".."))
 							relPath = relPath.replace(".." + File.separator, "");
 						if(fileName.toLowerCase().contains(relPath.replace("%20", " ").toLowerCase())){
@@ -35,6 +38,7 @@ public class ReadExcel {
 							f.setLocation(getCellString(sheet.getRow(6).getCell(2)));
 							f.setSystem(getCellString(sheet.getRow(2).getCell(6)));
 							f.setBlock(getCellString(sheet.getRow(rowNum).getCell(3, Row.RETURN_BLANK_AS_NULL)));
+							f.setDrawingText(getCellString(sheet.getRow(rowNum).getCell(13, Row.RETURN_BLANK_AS_NULL)));
 							f.setF0(getCellString(sheet.getRow(rowNum).getCell(4, Row.RETURN_BLANK_AS_NULL)));
 							f.setRDSPP(getCellString(sheet.getRow(rowNum).getCell(5, Row.RETURN_BLANK_AS_NULL)));
 							f.setRev(getCellString(sheet.getRow(rowNum).getCell(6, Row.RETURN_BLANK_AS_NULL)) != null? getCellString(sheet.getRow(rowNum).getCell(6, Row.RETURN_BLANK_AS_NULL)) : null);

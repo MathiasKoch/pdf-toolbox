@@ -27,6 +27,7 @@ public class WriterFile {
 	private boolean unlock;
 	private boolean red;
 	private boolean ready;
+	private String drawingText;
 
 	WriterFile(){
 
@@ -72,7 +73,15 @@ public class WriterFile {
 	}
 
 	String getLocation(){
-		return location;
+		return this.location;
+	}
+
+	void setDrawingText(String text){
+		this.drawingText = text.replaceAll("[\\\\/:*?\"<>|]", " ");;
+	}
+
+	String getDrawingText(){
+		return this.drawingText;
 	}
 
 	void setRev(String r){
@@ -109,7 +118,11 @@ public class WriterFile {
 		return f;
 	}
 
-	String getName(){
+	String getName(boolean includeDrawingText){
+		if(includeDrawingText && this.drawingText.length() > 0){
+			String fileType = FilenameUtils.getExtension(f.getAbsolutePath());
+			return f.getName().replace("." + fileType, "") + "_" + this.drawingText + "." + fileType;
+		}
 		return f.getName();
 	}
 

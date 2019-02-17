@@ -17,7 +17,7 @@ public class TabAbout {
 	public static JPanel initUI(){
 		JPanel jplPanel = new JPanel(new BorderLayout());
 		try {
-			BufferedImage image = ImageIO.read(TabAbout.class.getResource("icon.png"));
+			BufferedImage image = ImageIO.read(TabAbout.class.getClassLoader().getResource("icon.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(image));
 			picLabel.setBorder(new EmptyBorder(20,0,0,0));
 			JLabel version = new JLabel(Resources.get("application.version"), JLabel.CENTER);

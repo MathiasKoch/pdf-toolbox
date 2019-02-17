@@ -47,7 +47,7 @@ public class TabWriter {
 	private static JButton xmlButton, pdfButton, pdfPosButton, wordPosButton, excelPosButton;
 	private static JFileChooser fc, fc2;
 	public static String dir, RDSPP = null, dirIndex;
-	public static JCheckBox redButton, revButton, unlockButton, sheetButton, pdfCheck, wordCheck, excelCheck;
+	public static JCheckBox redButton, revButton, unlockButton, drawingTextButton, sheetButton, pdfCheck, wordCheck, excelCheck;
 	private static JPanel jplPanel;
 	public static ArrayList<WriterFile> arr;
 	public static ArrayList<Position> PDF = new ArrayList<Position>();
@@ -164,6 +164,8 @@ public class TabWriter {
 			}
 		});
 
+		wordPosButton.setEnabled(false);
+
 		excelPosButton = new JButton(Resources.get("button.writer.excelPos"));
 		excelPosButton.setPreferredSize(new Dimension(150, 20));
 		excelPosButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -174,6 +176,8 @@ public class TabWriter {
 				MainWindow.showPositionEditor("excel");
 			}
 		});
+		excelPosButton.setEnabled(false);
+
 		customText = new JTextField(12);
 		customText.addKeyListener(new KeyListener() {
 
@@ -246,11 +250,15 @@ public class TabWriter {
 		textField.setMargin(new Insets(2, 2, 2, 2));
 		redButton = new JCheckBox(Resources.get("button.writer.red"));
 		revButton = new JCheckBox(Resources.get("button.writer.rev"));
+		drawingTextButton = new JCheckBox(Resources.get("button.writer.drawingText"));
 		sheetButton = new JCheckBox(Resources.get("button.writer.sheet"));
 		unlockButton = new JCheckBox(Resources.get("button.writer.unlock"));
 		pdfCheck = new JCheckBox(Resources.get("button.writer.pdfcheck"));
 		wordCheck = new JCheckBox(Resources.get("button.writer.wordcheck"));
 		excelCheck = new JCheckBox(Resources.get("button.writer.excelcheck"));
+
+		wordCheck.setEnabled(false);
+		excelCheck.setEnabled(false);
 
 		table = new ZebraJTable(model);
 		table.setIntercellSpacing(new Dimension(0, 1));
@@ -296,6 +304,20 @@ public class TabWriter {
 			}
 		});
 
+		drawingTextButton.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arr != null){
+					for(int i = 0; i < arr.size(); i++){
+						model.setValueAt(
+								arr.get(i).getName(drawingTextButton.isSelected()), i, 0);
+					}
+					model.fireTableDataChanged();
+				}
+			}
+		});
+
 		pdfCheck.addItemListener(new ItemListener() {
 
 			@Override
@@ -330,7 +352,8 @@ public class TabWriter {
 		opt.add(redButton);
 		opt.add(revButton);
 		opt.add(sheetButton);
-		opt.add(unlockButton);
+		opt.add(unlockButton, "wrap");
+		opt.add(drawingTextButton, "span 2");
 
 		position.add(pdfPosButton, "wrap, gaptop 1px");
 		position.add(wordPosButton, "wrap, gaptop 2px");
@@ -383,7 +406,7 @@ public class TabWriter {
 							}else if(f.getType().equals("pdf")){
 								WritePdf.checkPositions(f, PDF);
 							}
-							model.addRow(new Object[]{f.getName(), f.getRDSPP(true, revButton.isSelected(), sheetButton.isSelected()), f.getWritePosString()});
+							model.addRow(new Object[]{f.getName(drawingTextButton.isSelected()), f.getRDSPP(true, revButton.isSelected(), sheetButton.isSelected()), f.getWritePosString()});
 						}
 						model.fireTableDataChanged();
 						updateFilters();
@@ -410,6 +433,7 @@ public class TabWriter {
 		wordCheck.setSelected(false);
 		excelCheck.setSelected(false);
 		revButton.setSelected(false);
+		drawingTextButton.setSelected(false);
 		redButton.setSelected(false);
 		sheetButton.setSelected(false);
 		customText.setText("");
@@ -451,7 +475,7 @@ public class TabWriter {
 	}
 
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = TabWriter.class.getResource(path);
+		java.net.URL imgURL = TabWriter.class.getClassLoader().getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {

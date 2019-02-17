@@ -300,7 +300,7 @@ public class MenuPaneSplit extends JPanel {
 	}
 
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = TabSplitter.class.getResource(path);
+		java.net.URL imgURL = TabSplitter.class.getClassLoader().getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {

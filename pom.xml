@@ -7,11 +7,99 @@
   <version>2.0.0</version>
   <packaging>jar</packaging>
 
+  <repositories>
+    <repository>
+      <!-- this repository has the JRE tgz -->
+      <id>alfresco</id>
+      <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+    </repository>
+    <repository>
+    <!-- mvn install:install-file -Dfile=./lib/LightBox.jar -DgroupId=harsh.p.raval.lightbox -DartifactId=LightBox -Dversion=1.0 -Dpackaging=jar -DlocalRepositoryPath=./my-repo -->
+      <id>my</id>
+      <url>file://${basedir}/my-repo</url>
+    </repository>
+  </repositories>
+
   <build>
+    <directory>${project.basedir}/target</directory>
+    <outputDirectory>${project.basedir}/target/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
     <plugins>
+      <plugin>
+        <!-- Build an executable JAR -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>com.dong.matko.toolbox.MainWindow</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- this is to extract the JRE tgz file we downloaded -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.5.1</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeGroupIds>com.oracle.java</includeGroupIds>
+              <includeTypes>tgz</includeTypes>
+              <includeArtifactIds>jre</includeArtifactIds>
+              <includeClassifiers>win32</includeClassifiers>
+              <outputDirectory>target/win32</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make-executable-jar-with-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <mainClass>com.dong.matko.toolbox.MainWindow</mainClass>
+                </manifest>
+              </archive>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.akathist.maven.plugins.launch4j</groupId>
         <artifactId>launch4j-maven-plugin</artifactId>
+        <version>1.7.25</version>
         <executions>
           <execution>
             <id>l4j-gui</id>
@@ -21,19 +109,16 @@
             </goals>
             <configuration>
               <headerType>gui</headerType>
-              <outfile>target/pdf-toolbox.exe</outfile>
-              <jar>target/pdf-toolbox-2.0.0.jar</jar>
+              <outfile>target/${project.artifactId}-${project.version}.exe</outfile>
+              <jar>target/${project.artifactId}-${project.version}.jar</jar>
               <errTitle>pdf-toolbox</errTitle>
               <classPath>
-                <mainClass>com.akathist.encc.Clui</mainClass>
-                <addDependencies>false</addDependencies>
+                <mainClass>com.dong.matko.toolbox.MainWindow</mainClass>
+                <addDependencies>true</addDependencies>
                 <preCp>anything</preCp>
               </classPath>
               <jre>
-                <minVersion>11</minVersion>
-                <opts>
-                  <opt>-Djava.endorsed.dirs=./endorsed</opt>
-                </opts>
+                <path>./win32/java</path>
               </jre>
               <versionInfo>
                 <fileVersion>1.2.3.4</fileVersion>
@@ -50,7 +135,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- <plugin>
+       <!-- <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
@@ -60,6 +145,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
               <descriptors>
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
@@ -71,11 +157,19 @@
   </build>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
+    <!-- This is the win32 JRE tgz hosted by alfresco - https://mvnrepository.com/artifact/com.oracle.java/jre -->
+    <dependency>
+      <groupId>com.oracle.java</groupId>
+      <artifactId>jre</artifactId>
+      <classifier>win32</classifier>
+      <type>tgz</type>
+      <version>1.8.0_131</version>
+    </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -155,8 +249,12 @@
       <groupId>harsh.p.raval.lightbox</groupId>
       <artifactId>LightBox</artifactId>
       <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/LightBox.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

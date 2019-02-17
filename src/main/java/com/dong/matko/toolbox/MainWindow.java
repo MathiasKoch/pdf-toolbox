@@ -146,7 +146,7 @@ public class MainWindow extends JPanel implements ChangeListener{
 	}
 	public static void showModal(String text){
 		p = new JPanel();
-		java.net.URL imgURL = MainWindow.class.getResource("ajax-loader.gif");
+		java.net.URL imgURL = MainWindow.class.getClassLoader().getResource("ajax-loader.gif");
 		ImageIcon loading = new ImageIcon(imgURL);
 		JLabel jl = new JLabel("   " + text, loading, JLabel.CENTER);
 		loading.setImageObserver(jl);
@@ -222,7 +222,7 @@ public class MainWindow extends JPanel implements ChangeListener{
 	{
 		frame = new JFrame(Resources.get("application.name"));
 		frame.setResizable(false);
-		java.net.URL imgURL = MainWindow.class.getResource("icon.png");
+		java.net.URL imgURL = MainWindow.class.getClassLoader().getResource("icon.png");
 		if (imgURL != null) {
 			frame.setIconImage((new ImageIcon(imgURL)).getImage());
 		}

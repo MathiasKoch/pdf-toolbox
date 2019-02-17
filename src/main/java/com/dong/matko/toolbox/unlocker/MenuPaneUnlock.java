@@ -143,7 +143,7 @@ public class MenuPaneUnlock extends JPanel {
 
 	}
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = TabUnlocker.class.getResource(path);
+		java.net.URL imgURL = TabUnlocker.class.getClassLoader().getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
