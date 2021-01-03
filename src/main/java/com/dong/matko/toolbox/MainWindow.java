@@ -211,7 +211,7 @@ public class MainWindow extends JPanel implements ChangeListener{
 		TabHelper.addTab(mainFrame, "COUNTER", COUNTER);
 
 		JPanel ABOUT = TabAbout.initUI();
-		TabHelper.addTab(mainFrame, "OPTIONS", ABOUT);
+		TabHelper.addTab(mainFrame, "ABOUT", ABOUT);
 
 		mainFrame.addChangeListener(this);
 
@@ -235,7 +235,7 @@ public class MainWindow extends JPanel implements ChangeListener{
 		} catch (Exception e) {}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(new MainWindow().getContent());
-		frame.setSize(1000, 542);
+		frame.setSize(1000, 700);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation( d.width / 2 - 400, d.height/2 - 250 );
 		frame.addWindowListener(new WindowListener() {

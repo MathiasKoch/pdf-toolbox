@@ -1,6 +1,5 @@
 package com.dong.matko.toolbox.renamer.ui;
 
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +27,9 @@ import com.dong.matko.toolbox.renamer.gui.action.RenameButton;
 import com.dong.matko.toolbox.renamer.gui.action.UndoButton;
 import com.dong.matko.toolbox.renamer.gui.list.RenamerFileList;
 import com.dong.matko.toolbox.renamer.gui.option.regexp.RegexpString;
+import com.dong.matko.toolbox.renamer.gui.option.excel.ExcelUtilities;
+import com.dong.matko.toolbox.writer.ReadExcel;
+import com.dong.matko.toolbox.writer.WriterFile;
 
 
 /**
@@ -43,6 +46,7 @@ public class RenameMediator {
 	private UndoButton undo;
 	private RegexpString regexp;
 	private JLabel groupLabel;
+	private JLabel excelLabel;
 	// --- Restore default settings
 	private ArrayList<Option> optionList;
 	private boolean blocking;
@@ -54,6 +58,13 @@ public class RenameMediator {
 	private String formatFilename;
 	private String formatExtension;
 	private String formatGroup;
+	private String formatTecdocDrawingOne;
+	private String formatTecdocDrawingTwo;
+	private String formatTecdocDrawingThree;
+	private String formatTecdocLocation;
+	private String formatTecdocBlock;
+	private String formatTecdocF0;
+	private String formatTecdocRDSPP;
 	// --- Main Frame
 	private JFrame main;
 	// --- File chooser
@@ -61,6 +72,9 @@ public class RenameMediator {
 	private PreviewButton preview;
 	// --- Regexp flag
 	private boolean newRegexpFlag;
+	// --- TECDOC Excel file
+	private String excelFilePath;
+	private ArrayList<WriterFile> tecdocArray;
 
 	public RenameMediator(JFrame mainFrame) {
 		main=mainFrame;
@@ -79,6 +93,13 @@ public class RenameMediator {
 		formatFilename=Resources.get("format.filename");
 		formatExtension=Resources.get("format.extension");
 		formatGroup=Resources.get("format.group");
+		formatTecdocDrawingOne=Resources.get("format.tecdoc.drawing.one");
+		formatTecdocDrawingTwo=Resources.get("format.tecdoc.drawing.two");
+		formatTecdocDrawingThree=Resources.get("format.tecdoc.drawing.three");
+		formatTecdocLocation=Resources.get("format.tecdoc.location");
+		formatTecdocBlock=Resources.get("format.tecdoc.block");
+		formatTecdocF0=Resources.get("format.tecdoc.F0");
+		formatTecdocRDSPP=Resources.get("format.tecdoc.RDSPP");
 	}
 
 	// --- Click on exit button
@@ -233,6 +254,15 @@ public class RenameMediator {
 					}
 				}
 
+				// --- TECDOC replacement
+				name = name.replaceAll(formatTecdocDrawingOne, ExcelUtilities.getDrawingText(tecdocArray, fr.getName(),1));
+				name = name.replaceAll(formatTecdocDrawingTwo, ExcelUtilities.getDrawingText(tecdocArray, fr.getName(),2));
+				name = name.replaceAll(formatTecdocDrawingThree, ExcelUtilities.getDrawingText(tecdocArray, fr.getName(),3));
+				name = name.replaceAll(formatTecdocLocation, ExcelUtilities.getLocation(tecdocArray, fr.getName()));
+				name = name.replaceAll(formatTecdocBlock, ExcelUtilities.getBlock(tecdocArray, fr.getName()));
+				name = name.replaceAll(formatTecdocF0, ExcelUtilities.getF0(tecdocArray, fr.getName()));
+				name = name.replaceAll(formatTecdocRDSPP, ExcelUtilities.getRDSPP(tecdocArray, fr.getName()));
+
 				// --- Case
 				if (options.isUppercase()) {
 					name = name.toUpperCase();
@@ -313,6 +343,31 @@ public class RenameMediator {
 	    }
 	}
 
+	public void clearExcelFile() {
+		excelFilePath = null;
+		excelLabel.setText("none");
+	}
+
+	public void selectExcelFile(FileFilter filter) {
+		chooser.setFileFilter(filter);
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		if (chooser.showOpenDialog(main) == JFileChooser.APPROVE_OPTION) {
+			File file = chooser.getSelectedFile();
+			excelFilePath = file.getAbsolutePath();
+			excelLabel.setText(file.getName());
+			if(excelFilePath != null){
+				try {
+					tecdocArray = ReadExcel.getExcelDrawingTexts(excelFilePath);
+				} catch (Exception e) {
+					//TODO: handle exception
+				}
+			}
+		}
+		chooser.setFileFilter(null);
+		chooser.setMultiSelectionEnabled(true);
+		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+	}
+
 	public void drop(File[] files) {
 		renameFiles = new ArrayList<FileRenamer>();
 		for (File file : files) {
@@ -359,6 +414,10 @@ public class RenameMediator {
 
 	public void registerGroupLabel(JLabel groupLabel) {
 		this.groupLabel=groupLabel;
+	}
+
+	public void registerExcelLabel(JLabel excelLabel) {
+		this.excelLabel=excelLabel;
 	}
 
 	public void registerOption(Option opt) {

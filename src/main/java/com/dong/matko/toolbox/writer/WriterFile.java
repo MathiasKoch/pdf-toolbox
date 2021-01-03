@@ -18,6 +18,7 @@ public class WriterFile {
 	private String F0;
 	private String rdspp;
 	private String nrSys;
+	private String fileName;
 	private String customSys = "";
 	private String sheet;
 	private String rev;
@@ -27,150 +28,208 @@ public class WriterFile {
 	private boolean unlock;
 	private boolean red;
 	private boolean ready;
-	private String drawingText;
+	private String drawingTextOne;
+	private String drawingTextTwo;
+	private String drawingTextThree;
 
-	WriterFile(){
+	WriterFile() {
 
 	}
 
-	WriterFile(File doc, String rds){
+	WriterFile(File doc, String rds) {
 		this.locked = Unlocker.isLocked(doc);
 		this.fileType = FilenameUtils.getExtension(doc.getAbsolutePath());
 		this.f = doc;
 		this.rdspp = rds;
 	}
 
-	void setWritePos(Position p){
+	void setWritePos(Position p) {
 		this.pos = p;
 	}
 
-	void setReadyState(boolean r){
+	void setReadyState(boolean r) {
 		this.ready = r;
 	}
 
-	boolean getReadyState(){
+	boolean getReadyState() {
 		return ready;
 	}
 
-	void setWritePosList(ArrayList<Position> p){
+	void setWritePosList(ArrayList<Position> p) {
 		// this.posList = p;
 	}
 
-	String getType(){
+	String getType() {
 		return fileType.toLowerCase();
 	}
 
-	String getWritePosString(){
-		return pos != null? pos.toString() : Resources.get("tooltip.writer.na");
+	String getWritePosString() {
+		return pos != null ? pos.toString() : Resources.get("tooltip.writer.na");
 	}
 
-	Position getWritePos(){
+	Position getWritePos() {
 		return pos;
 	}
 
-	void setLocation(String l){
+	void setLocation(String l) {
 		this.location = l;
 	}
 
-	String getLocation(){
+	public String getLocation() {
 		return this.location;
 	}
 
-	void setDrawingText(String text){
-		this.drawingText = text.replaceAll("[\\\\/:*?\"<>|]", " ");;
+	void setDrawingText(String text, Integer textNumber) {
+		if(textNumber == 1){
+			this.drawingTextOne = text.replaceAll("[\\\\/:*?\"<>|]", " ");
+		} else if(textNumber == 2){
+			this.drawingTextTwo = text.replaceAll("[\\\\/:*?\"<>|]", " ");
+		}
+		this.drawingTextThree = text.replaceAll("[\\\\/:*?\"<>|]", " ");
 	}
 
-	String getDrawingText(){
-		return this.drawingText;
+	public String getDrawingText(Integer textNumber) {
+		if(textNumber == 1){
+			return this.drawingTextOne;
+		} else if(textNumber == 2){
+			return this.drawingTextTwo;
+		}
+		return this.drawingTextThree;
 	}
 
-	void setRev(String r){
+	void setRev(String r) {
 		this.rev = r;
 	}
 
-	String getRev(){
+	String getRev() {
 		return rev;
 	}
 
-	void setUnlock(boolean u){
+	void setUnlock(boolean u) {
 		this.unlock = u;
 	}
 
-	boolean getUnlock(){
+	boolean getUnlock() {
 		return unlock;
 	}
 
-	void setRedFont(boolean r){
+	void setRedFont(boolean r) {
 		this.red = r;
 	}
 
-	boolean getRedFont(){
+	boolean getRedFont() {
 		return red;
 	}
 
-	void setFile(File doc){
+	void setFile(File doc) {
 		this.fileType = FilenameUtils.getExtension(doc.getAbsolutePath());
-		if(fileType.toLowerCase() == "pdf") this.locked = Unlocker.isLocked(doc);
+		if (fileType.toLowerCase() == "pdf")
+			this.locked = Unlocker.isLocked(doc);
 		this.f = doc;
 	}
 
-	File getFile(){
+	File getFile() {
 		return f;
 	}
 
-	String getName(boolean includeDrawingText){
-		if(includeDrawingText && this.drawingText.length() > 0){
+	String getName(boolean includeDrawingText) {
+		if (includeDrawingText && this.drawingTextThree.length() > 0) {
 			String fileType = FilenameUtils.getExtension(f.getAbsolutePath());
-			return f.getName().replace("." + fileType, "") + "_" + this.drawingText + "." + fileType;
+			return f.getName().replace("." + fileType, "") + "_" + this.drawingTextThree + "." + fileType;
 		}
 		return f.getName();
 	}
 
-	void setBlock(String b){
+	void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return this.fileName;
+	}
+
+	void setBlock(String b) {
 		this.block = b;
 	}
 
-	String getBlock(){
+	public String getBlock() {
 		return block;
 	}
 
-	void setF0(String f){
+	void setF0(String f) {
 		this.F0 = f;
 	}
 
-	String getF0(){
+	public String getF0() {
 		return F0;
 	}
 
-	void setSystem(String s){
+	void setSystem(String s) {
 		this.nrSys = s;
 	}
 
-	void setCustomSystem(String s){
+	void setCustomSystem(String s) {
 		this.customSys = s;
 	}
 
-	boolean getLocked(){
+	boolean getLocked() {
 		return locked;
 	}
 
-	String getSystem(){
-		return customSys.length() > 0? customSys : nrSys;
+	String getSystem() {
+		return customSys.length() > 0 ? customSys : nrSys;
 	}
 
-	void setRDSPP(String r){
+	void setRDSPP(String r) {
 		this.rdspp = r;
 	}
 
-	void setSheet(String s){
+	void setSheet(String s) {
 		this.sheet = s;
 	}
 
-	String getSheet(){
+	public String getSheet() {
 		return sheet;
 	}
 
-	String getRDSPP(boolean preFix, boolean r, boolean sheetNr){
-		return (preFix? nrSys != null? customSys.length() > 0? customSys + " " : nrSys + " No: " : defaultNrSys + " No: " : "") + (location.length() > 0? location + " " : "") + block + F0 + " " + rdspp + (r? rev != null? " " + rev : "" : "") + (sheetNr? sheet != null? ", " + sheet : "" : "");
+	String appendStr(String str, String strToAppend, String prependTostring, String appendToString) {
+		String returnStr = str;
+		if (strToAppend != null && strToAppend.length() > 0) {
+			if (prependTostring != null && prependTostring.length() > 0) {
+				returnStr = returnStr + prependTostring;
+			}
+			returnStr = returnStr + strToAppend;
+			if (appendToString != null && appendToString.length() > 0) {
+				returnStr = returnStr + appendToString;
+			}
+		}
+		return returnStr;
+	}
+
+	public String getRDSPP(boolean preFix, boolean r, boolean sheetNr) {
+		String returnStr = "";
+		if (preFix) {
+			if (nrSys != null) {
+				if (customSys.length() > 0) {
+					returnStr = returnStr + customSys + " ";
+				} else {
+					returnStr = returnStr + nrSys + " No: ";
+				}
+			} else {
+				returnStr = appendStr(returnStr, defaultNrSys, null, " No: ");
+
+			}
+		}
+		returnStr = appendStr(returnStr, location, null, " ");
+		returnStr = appendStr(returnStr, block, null, null);
+		returnStr = appendStr(returnStr, F0, null, " ");
+		returnStr = appendStr(returnStr, rdspp, null, null);
+		if (r) {
+			returnStr = appendStr(returnStr, rev, " ", null);
+		}
+		if (sheetNr) {
+			returnStr = appendStr(returnStr, sheet, ", ", null);
+		}
+		return returnStr;
 	}
 }

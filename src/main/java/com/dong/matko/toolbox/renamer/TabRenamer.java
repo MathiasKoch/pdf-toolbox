@@ -21,6 +21,7 @@ import com.dong.matko.toolbox.renamer.gui.option.increment.IncrementPane;
 import com.dong.matko.toolbox.renamer.gui.option.output.OutputPane;
 import com.dong.matko.toolbox.renamer.gui.option.regexp.RegexpPane;
 import com.dong.matko.toolbox.renamer.gui.option.replace.ReplacePane;
+import com.dong.matko.toolbox.renamer.gui.option.excel.ExcelPane;
 import com.dong.matko.toolbox.renamer.ui.Command;
 import com.dong.matko.toolbox.renamer.ui.RenameMediator;
 
@@ -41,6 +42,7 @@ public class TabRenamer extends JPanel implements ActionListener, CaretListener,
 		RegexpPane regex = new RegexpPane(this, mediator);
 		IncrementPane increment = new IncrementPane(this, mediator);
 		ReplacePane replace = new ReplacePane(this, mediator);
+		ExcelPane excel = new ExcelPane(this, mediator);
 		OutputPane output = new OutputPane(this, mediator);
 
 		// --- Layout
@@ -49,8 +51,9 @@ public class TabRenamer extends JPanel implements ActionListener, CaretListener,
 		center.add(format, 		"growx, wrap");
 		center.add(increment, 	"growx, split");
 		center.add(replace, 	"growx, aligny top, wrap");
-		center.add(output, 		"growx, split, sg 1");
+		center.add(excel, 		"growx, split, sg 1");
 		center.add(regex, 		"growx, wrap, sg 1");
+		center.add(output, 		"growx, wrap");
 		center.add(list, 		"growx, wrap");
 		jpl.add(center, 	"");
 		jpl.add(menu, 	"east");

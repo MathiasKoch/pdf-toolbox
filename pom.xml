@@ -14,7 +14,7 @@
       <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
     </repository>
     <repository>
-    <!-- mvn install:install-file -Dfile=./lib/LightBox.jar -DgroupId=harsh.p.raval.lightbox -DartifactId=LightBox -Dversion=1.0 -Dpackaging=jar -DlocalRepositoryPath=./my-repo -->
+      <!-- mvn install:install-file -Dfile=./lib/LightBox.jar -DgroupId=harsh.p.raval.lightbox -DartifactId=LightBox -Dversion=1.0 -Dpackaging=jar -DlocalRepositoryPath=./my-repo -->
       <id>my</id>
       <url>file://${basedir}/my-repo</url>
     </repository>
@@ -67,7 +67,7 @@
               <includeTypes>tgz</includeTypes>
               <includeArtifactIds>jre</includeArtifactIds>
               <includeClassifiers>win32</includeClassifiers>
-              <outputDirectory>target/win32</outputDirectory>
+              <outputDirectory>target/jre18</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -94,6 +94,19 @@
               </descriptorRefs>
             </configuration>
           </execution>
+          <execution>
+            <id>assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>assembly</goal>
+            </goals>
+            <configuration>
+              <appendAssemblyId>false</appendAssemblyId>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -112,47 +125,33 @@
               <outfile>target/${project.artifactId}-${project.version}.exe</outfile>
               <jar>target/${project.artifactId}-${project.version}.jar</jar>
               <errTitle>pdf-toolbox</errTitle>
+              <downloadUrl>http://java.com/download</downloadUrl>
               <classPath>
                 <mainClass>com.dong.matko.toolbox.MainWindow</mainClass>
                 <addDependencies>true</addDependencies>
                 <preCp>anything</preCp>
               </classPath>
               <jre>
-                <path>./win32/java</path>
+                <bundledJre64Bit>false</bundledJre64Bit>
+                <bundledJreAsFallback>true</bundledJreAsFallback>
+                <path>./jre18/java</path>
+                <minVersion>1.8</minVersion>
               </jre>
               <versionInfo>
-                <fileVersion>1.2.3.4</fileVersion>
-                <txtFileVersion>txt file version?</txtFileVersion>
-                <fileDescription>a description</fileDescription>
-                <copyright>my copyright</copyright>
-                <productVersion>4.3.2.1</productVersion>
-                <txtProductVersion>txt product version</txtProductVersion>
-                <productName>PDF-Toolbox</productName>
+                <fileVersion>1.0.0.0</fileVersion>
+                <txtFileVersion>${project.version}</txtFileVersion>
+                <fileDescription>${project.name}</fileDescription>
+                <copyright>Mathias Koch</copyright>
+                <productVersion>1.0.0.0</productVersion>
+                <txtProductVersion>1.0.0.0</txtProductVersion>
+                <productName>${project.name}</productName>
                 <internalName>pdf-toolbox</internalName>
-                <originalFilename>original.exe</originalFilename>
+                <originalFilename>${project.artifactId}-${project.version}.exe</originalFilename>
               </versionInfo>
             </configuration>
           </execution>
         </executions>
       </plugin>
-       <!-- <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
-              <descriptors>
-                <descriptor>assembly.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin> -->
     </plugins>
   </build>
 

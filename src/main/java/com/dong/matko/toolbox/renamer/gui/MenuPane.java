@@ -52,6 +52,20 @@ public class MenuPane extends JPanel {
 		libelles.add(new BlueLabel(Resources.get("format.extension")), "");
 		libelles.add(new JLabel(Resources.get("format.string.group")), "");
 		libelles.add(new BlueLabel(Resources.get("format.group")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.drawing.one")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.drawing.one")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.drawing.two")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.drawing.two")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.drawing.three")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.drawing.three")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.location")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.location")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.block")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.block")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.F0")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.F0")), "");
+		libelles.add(new JLabel(Resources.get("format.string.tecdoc.RDSPP")), "");
+		libelles.add(new BlueLabel(Resources.get("format.tecdoc.RDSPP")), "");
 
 		add(libelles, 					"alignx");
 
